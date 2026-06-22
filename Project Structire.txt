@@ -1,0 +1,35 @@
+kadam-tours/
+│
+├── index.html
+├── about.html
+├── destinations.html
+├── packages.html
+├── gallery.html
+├── blog.html
+├── testimonials.html
+├── faq.html
+├── contact.html
+├── booking.html
+│
+├── css/
+│   ├── style.css
+│   ├── responsive.css
+│   └── animations.css
+│
+├── js/
+│   ├── main.js
+│   ├── booking.js
+│   ├── gallery.js
+│   └── faq.js
+│
+├── images/
+│   ├── hero/
+│   ├── destinations/
+│   ├── tours/
+│   ├── gallery/
+│   └── logo/
+│
+└── php/
+    ├── booking.php
+    ├── contact.php
+    └── config.php
