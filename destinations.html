@@ -1,581 +1,232 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Destinations | Kadam Tours</title>
-
-    <meta name="description"
-          content="Explore Karamoja's most beautiful destinations including Kidepo Valley National Park, Mount Moroto, Pian Upe Wildlife Reserve and cultural villages.">
-
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
-    <link rel="stylesheet" href="css/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Destinations | Mt.Kadam Tours</title>
+<meta name="description" content="Explore Karamoja's most beautiful destinations including Kidepo Valley National Park, Mount Moroto, Pian Upe Wildlife Reserve and cultural villages.">
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-<!-- ================= HEADER ================= -->
 <header class="header">
-    <div class="container nav-container">
-
-        <a href="index.html" class="logo">
-            Kadam<span>Tours</span>
-        </a>
-
-        <nav class="navbar">
-            <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="destinations.html" class="active">Destinations</a></li>
-                <li><a href="packages.html">Packages</a></li>
-                <li><a href="gallery.html">Gallery</a></li>
-                <li><a href="blog.html">Blog</a></li>
-                <li><a href="testimonials.html">Testimonials</a></li>
-                <li><a href="faq.html">FAQ</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-        </nav>
-
-        <div class="nav-actions">
-            <a href="booking.html" class="btn btn-primary">
-                Book Now
-            </a>
-
-            <button id="menu-btn">
-                <i class="fas fa-bars"></i>
-            </button>
-        </div>
-
+  <div class="container nav-container">
+    <a href="index.html" class="logo"><span class="mt-prefix">Mt.</span>Kadam<span>Tours</span></a>
+    <nav class="navbar">
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="destinations.html" class="active">Destinations</a></li>
+        <li><a href="packages.html">Packages</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="testimonials.html">Testimonials</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="nav-actions">
+      <a href="booking.html" class="btn btn-primary">Book Now</a>
+      <button id="menu-btn" aria-label="Menu"><i class="fas fa-bars"></i></button>
     </div>
+  </div>
 </header>
 
-<!-- ================= HERO ================= -->
-<section class="hero destinations-hero">
-
-    <div class="hero-overlay"></div>
-
-    <div class="container hero-content">
-
-        <h1>Explore Karamoja</h1>
-
-        <p>
-            Discover breathtaking landscapes,
-            wildlife adventures, cultural experiences,
-            and hidden gems across Karamoja.
-        </p>
-
-    </div>
-
+<section class="page-header">
+  <div class="container">
+    <div class="breadcrumb"><a href="index.html">Home</a> / Destinations</div>
+    <h1>Explore Karamoja and Beyond</h1>
+    <p>Breathtaking landscapes, wildlife adventures, cultural encounters, and hidden ground across Uganda's northeast & Beyond.</p>
+  </div>
 </section>
 
-<!-- ================= SEARCH ================= -->
+<section class="section" style="padding-bottom:0;">
+  <div class="container">
+    <div class="destination-search reveal" style="max-width:100%;">
+      <input type="text" id="destinationSearch" placeholder="Search by name, activity or region...">
+    </div>
+  </div>
+</section>
+
 <section class="section">
+  <div class="container">
+    <div class="destination-grid" id="destinationGrid">
 
-    <div class="container">
-
-        <div class="section-header">
-            <h2>Find Your Destination</h2>
-            <p>
-                Search through our amazing destinations.
-            </p>
+      <div class="destination-card destination-item reveal">
+        <img src="images/destinations/kidepo.jpg" alt="Kidepo Valley National Park">
+        <div class="destination-info">
+          <h3>Kidepo Valley National Park</h3>
+          <p>One of Africa's most spectacular wildlife destinations, home to lions, elephants, buffaloes, giraffes, cheetahs and breathtaking savannah.</p>
+          <ul class="destination-features"><li>Game Drives</li><li>Wildlife Photography</li><li>Nature Walks</li></ul>
+          <a href="booking.html" class="btn btn-primary btn-sm">Book Tour</a>
         </div>
+      </div>
 
-        <div class="destination-search">
-
-            <input
-                type="text"
-                id="destinationSearch"
-                placeholder="Search destinations...">
-
+      <div class="destination-card destination-item reveal">
+        <img src="images/destinations/murchison.jpg" alt="Murchison Falls National Park">
+        <div class="destination-info">
+          <h3>Murchison Falls National Park</h3>
+          <p>Watch the mighty Nile squeeze through a narrow gorge before plunging into Uganda's most iconic waterfall.</p>
+          <ul class="destination-features"><li>Boat Cruises</li><li>Game Drives</li><li>Waterfall Viewing</li></ul>
+          <a href="booking.html" class="btn btn-primary btn-sm">Book Tour</a>
         </div>
+      </div>
+
+      <div class="destination-card destination-item reveal">
+        <img src="images/destinations/queen-elizabeth.jpg" alt="Queen Elizabeth National Park">
+        <div class="destination-info">
+          <h3>Queen Elizabeth National Park</h3>
+          <p>Uganda's most popular park, known for tree-climbing lions, diverse wildlife and scenic crater lakes.</p>
+          <ul class="destination-features"><li>Safari Game Drives</li><li>Kazinga Channel Cruises</li><li>Bird Watching</li></ul>
+          <a href="booking.html" class="btn btn-primary btn-sm">Book Tour</a>
+        </div>
+      </div>
+
+      <div class="destination-card destination-item reveal">
+        <img src="images/destinations/pian-upe.jpg" alt="Pian-Upe Game Reserve">
+        <div class="destination-info">
+          <h3>Pian-Upe Game Reserve</h3>
+          <p>Uganda's second-largest conservation area, with wide plains, wildlife and quiet safari experiences.</p>
+          <ul class="destination-features"><li>Wildlife Safari</li><li>Nature Trails</li><li>Photography</li></ul>
+          <a href="booking.html" class="btn btn-primary btn-sm">Book Tour</a>
+        </div>
+      </div>
+
+      <div class="destination-card destination-item reveal">
+        <img src="images/destinations/lake-mburo.jpg" alt="Lake Mburo National Park">
+        <div class="destination-info">
+          <h3>Lake Mburo National Park</h3>
+          <p>Close encounters with zebras, impalas and other wildlife in Uganda's smallest savannah park.</p>
+          <ul class="destination-features"><li>Boat Rides</li><li>Walking Safaris</li><li>Game Viewing</li></ul>
+          <a href="booking.html" class="btn btn-primary btn-sm">Book Tour</a>
+        </div>
+      </div>
+
+      <div class="destination-card destination-item reveal">
+        <img src="images/destinations/kibale.jpg" alt="Kibale National Park">
+        <div class="destination-info">
+          <h3>Kibale National Park</h3>
+          <p>Uganda's primate capital — unforgettable chimpanzee tracking in dense forest.</p>
+          <ul class="destination-features"><li>Chimpanzee Tracking</li><li>Forest Walks</li><li>Bird Watching</li></ul>
+          <a href="booking.html" class="btn btn-primary btn-sm">Book Tour</a>
+        </div>
+      </div>
+
+      <div class="destination-card destination-item reveal">
+        <img src="images/destinations/bwindi.jpg" alt="Bwindi Impenetrable National Park">
+        <div class="destination-info">
+          <h3>Bwindi Impenetrable National Park</h3>
+          <p>Home to nearly half of the world's remaining mountain gorillas — one of Uganda's top attractions.</p>
+          <ul class="destination-features"><li>Gorilla Tracking</li><li>Nature Walks</li><li>Photography</li></ul>
+          <a href="booking.html" class="btn btn-primary btn-sm">Book Tour</a>
+        </div>
+      </div>
+
+      <div class="destination-card destination-item reveal">
+        <img src="images/destinations/moroto.jpg" alt="Mount Moroto">
+        <div class="destination-info">
+          <h3>Mount Moroto (3083m)</h3>
+          <p>A rewarding trek with scenic views, caves, forests and authentic cultural encounters.</p>
+          <ul class="destination-features"><li>Mountain Trekking</li><li>Camping</li><li>Cultural Tours</li></ul>
+          <a href="booking.html" class="btn btn-primary btn-sm">Book Tour</a>
+        </div>
+      </div>
+
+      <div class="destination-card destination-item reveal">
+        <img src="images/destinations/kadam.jpg" alt="Mount Kadam">
+        <div class="destination-info">
+          <h3>Mount Kadam (3063m)</h3>
+          <p>Challenging hikes, waterfalls, caves and incredible mountain scenery — our namesake peak.</p>
+          <ul class="destination-features"><li>Adventure Hiking</li><li>Nature Exploration</li><li>Camping</li></ul>
+          <a href="booking.html" class="btn btn-primary btn-sm">Book Tour</a>
+        </div>
+      </div>
+
+      <div class="destination-card destination-item reveal">
+        <img src="images/destinations/napak.jpg" alt="Mount Napak">
+        <div class="destination-info">
+          <h3>Mount Napak (2538m)</h3>
+          <p>Unique landscapes, wildlife and panoramic views from one of Karamoja's iconic mountains.</p>
+          <ul class="destination-features"><li>Trekking</li><li>Bird Watching</li><li>Photography</li></ul>
+          <a href="booking.html" class="btn btn-primary btn-sm">Book Tour</a>
+        </div>
+      </div>
+
+      <div class="destination-card destination-item reveal">
+        <img src="images/destinations/rwenzori.jpg" alt="Mount Rwenzori">
+        <div class="destination-info">
+          <h3>Mount Rwenzori (5109m)</h3>
+          <p>Africa's legendary Mountains of the Moon — glaciers, alpine vegetation and epic multi-day trekking.</p>
+          <ul class="destination-features"><li>Mountain Climbing</li><li>Multi-Day Trekking</li><li>Adventure Expeditions</li></ul>
+          <a href="booking.html" class="btn btn-primary btn-sm">Book Tour</a>
+        </div>
+      </div>
+
+      <div class="destination-card destination-item reveal">
+        <img src="images/destinations/cultural-village.jpg" alt="Karamoja Cultural Tours">
+        <div class="destination-info">
+          <h3>Karamoja Cultural, Kraal & Community Tours</h3>
+          <p>Authentic Karamojong culture through traditional homesteads, dances, storytelling and local life.</p>
+          <ul class="destination-features"><li>Cultural Experiences</li><li>Kraal Visits</li><li>Community Tourism</li></ul>
+          <a href="booking.html" class="btn btn-primary btn-sm">Book Tour</a>
+        </div>
+      </div>
 
     </div>
-
+  </div>
 </section>
 
-<!-- ================= DESTINATIONS ================= -->
-<section class="section">
-
-    <div class="container">
-
-        <div class="destination-grid" id="destinationGrid">
-
-            <!-- KIDEPO -->
-
-            <div class="destination-card destination-item">
-
-                <img src="images/destinations/kidepo.jpg"
-                     alt="Kidepo Valley National Park">
-
-                <div class="destination-info">
-
-                    <h3>Kidepo Valley National Park</h3>
-
-                    <p>
-                        Experience one of Africa's most spectacular wildlife destinations,
-                        home to lions, elephants, buffaloes, giraffes, cheetahs and
-                        breathtaking savannah landscapes.
-                    </p>
-
-                    <ul class="destination-features">
-                        <li>Game Drives</li>
-                        <li>Wildlife Photography</li>
-                        <li>Nature Walks</li>
-                    </ul>
-
-                    <a href="booking.html" class="btn btn-primary">
-                        Book Tour
-                    </a>
-
-                </div>
-
-            </div>
-
-            <!-- MURCHISON FALLS -->
-
-            <div class="destination-card destination-item">
-
-                <img src="images/destinations/murchison.jpg"
-                     alt="Murchison Falls National Park">
-
-                <div class="destination-info">
-
-                    <h3>Murchison Falls National Park</h3>
-
-                    <p>
-                        Witness the mighty Nile squeezing through a narrow gorge
-                        before plunging into one of Uganda's most iconic waterfalls.
-                    </p>
-
-                    <ul class="destination-features">
-                        <li>Boat Cruises</li>
-                        <li>Game Drives</li>
-                        <li>Waterfall Viewing</li>
-                    </ul>
-
-                    <a href="booking.html" class="btn btn-primary">
-                        Book Tour
-                    </a>
-
-                </div>
-
-            </div>
-
-            <!-- QUEEN ELIZABETH -->
-
-            <div class="destination-card destination-item">
-
-                <img src="images/destinations/queen-elizabeth.jpg"
-                     alt="Queen Elizabeth National Park">
-
-                <div class="destination-info">
-
-                    <h3>Queen Elizabeth National Park</h3>
-
-                    <p>
-                        Explore Uganda's most popular national park known for
-                        tree-climbing lions, diverse wildlife and scenic crater lakes.
-                    </p>
-
-                    <ul class="destination-features">
-                        <li>Safari Game Drives</li>
-                        <li>Kazinga Channel Cruises</li>
-                        <li>Bird Watching</li>
-                    </ul>
-
-                    <a href="booking.html" class="btn btn-primary">
-                        Book Tour
-                    </a>
-
-                </div>
-
-            </div>
-
-            <!-- PIAN UPE -->
-
-            <div class="destination-card destination-item">
-
-                <img src="images/destinations/pian-upe.jpg"
-                     alt="Pian-Upe Game Reserve">
-
-                <div class="destination-info">
-
-                    <h3>Pian-Upe Game Reserve</h3>
-
-                    <p>
-                        Uganda's second-largest conservation area offering
-                        wildlife adventures, scenic plains and unique safari experiences.
-                    </p>
-
-                    <ul class="destination-features">
-                        <li>Wildlife Safari</li>
-                        <li>Nature Trails</li>
-                        <li>Photography</li>
-                    </ul>
-
-                    <a href="booking.html" class="btn btn-primary">
-                        Book Tour
-                    </a>
-
-                </div>
-
-            </div>
-
-            <!-- LAKE MBURO -->
-
-            <div class="destination-card destination-item">
-
-                <img src="images/destinations/lake-mburo.jpg"
-                     alt="Lake Mburo National Park">
-
-                <div class="destination-info">
-
-                    <h3>Lake Mburo National Park</h3>
-
-                    <p>
-                        Enjoy close encounters with zebras, impalas and
-                        other wildlife in Uganda's smallest savannah park.
-                    </p>
-
-                    <ul class="destination-features">
-                        <li>Boat Rides</li>
-                        <li>Walking Safaris</li>
-                        <li>Game Viewing</li>
-                    </ul>
-
-                    <a href="booking.html" class="btn btn-primary">
-                        Book Tour
-                    </a>
-
-                </div>
-
-            </div>
-
-            <!-- KIBALE -->
-
-            <div class="destination-card destination-item">
-
-                <img src="images/destinations/kibale.jpg"
-                     alt="Kibale National Park">
-
-                <div class="destination-info">
-
-                    <h3>Kibale National Park</h3>
-
-                    <p>
-                        Discover Uganda's primate capital and enjoy
-                        unforgettable chimpanzee tracking experiences.
-                    </p>
-
-                    <ul class="destination-features">
-                        <li>Chimpanzee Tracking</li>
-                        <li>Forest Walks</li>
-                        <li>Bird Watching</li>
-                    </ul>
-
-                    <a href="booking.html" class="btn btn-primary">
-                        Book Tour
-                    </a>
-
-                </div>
-
-            </div>
-
-            <!-- BWINDI -->
-
-            <div class="destination-card destination-item">
-
-                <img src="images/destinations/bwindi.jpg"
-                     alt="Bwindi Impenetrable National Park">
-
-                <div class="destination-info">
-
-                    <h3>Bwindi Impenetrable National Park</h3>
-
-                    <p>
-                        Home to nearly half of the world's remaining
-                        mountain gorillas and one of Uganda's top attractions.
-                    </p>
-
-                    <ul class="destination-features">
-                        <li>Gorilla Tracking</li>
-                        <li>Nature Walks</li>
-                        <li>Photography</li>
-                    </ul>
-
-                    <a href="booking.html" class="btn btn-primary">
-                        Book Tour
-                    </a>
-
-                </div>
-
-            </div>
-
-            <!-- MT MOROTO -->
-
-            <div class="destination-card destination-item">
-
-                <img src="images/destinations/moroto.jpg"
-                     alt="Mount Moroto">
-
-                <div class="destination-info">
-
-                    <h3>Mount Moroto (3083m)</h3>
-
-                    <p>
-                        A rewarding trekking destination offering scenic views,
-                        caves, forests and authentic cultural encounters.
-                    </p>
-
-                    <ul class="destination-features">
-                        <li>Mountain Trekking</li>
-                        <li>Camping</li>
-                        <li>Cultural Tours</li>
-                    </ul>
-
-                    <a href="booking.html" class="btn btn-primary">
-                        Book Tour
-                    </a>
-
-                </div>
-
-            </div>
-
-            <!-- MT KADAM -->
-
-            <div class="destination-card destination-item">
-
-                <img src="images/destinations/kadam.jpg"
-                     alt="Mount Kadam">
-
-                <div class="destination-info">
-
-                    <h3>Mount Kadam (3063m)</h3>
-
-                    <p>
-                        Experience challenging hikes, waterfalls,
-                        caves and incredible mountain scenery.
-                    </p>
-
-                    <ul class="destination-features">
-                        <li>Adventure Hiking</li>
-                        <li>Nature Exploration</li>
-                        <li>Camping</li>
-                    </ul>
-
-                    <a href="booking.html" class="btn btn-primary">
-                        Book Tour
-                    </a>
-
-                </div>
-
-            </div>
-
-            <!-- MT NAPAK -->
-
-            <div class="destination-card destination-item">
-
-                <img src="images/destinations/napak.jpg"
-                     alt="Mount Napak">
-
-                <div class="destination-info">
-
-                    <h3>Mount Napak (2538m)</h3>
-
-                    <p>
-                        Discover unique landscapes, wildlife and
-                        panoramic views from one of Karamoja's iconic mountains.
-                    </p>
-
-                    <ul class="destination-features">
-                        <li>Trekking</li>
-                        <li>Bird Watching</li>
-                        <li>Photography</li>
-                    </ul>
-
-                    <a href="booking.html" class="btn btn-primary">
-                        Book Tour
-                    </a>
-
-                </div>
-
-            </div>
-
-            <!-- RWENZORI -->
-
-            <div class="destination-card destination-item">
-
-                <img src="images/destinations/rwenzori.jpg"
-                     alt="Mount Rwenzori">
-
-                <div class="destination-info">
-
-                    <h3>Mount Rwenzori (5109m)</h3>
-
-                    <p>
-                        Conquer Africa's legendary Mountains of the Moon,
-                        known for glaciers, alpine vegetation and epic trekking.
-                    </p>
-
-                    <ul class="destination-features">
-                        <li>Mountain Climbing</li>
-                        <li>Multi-Day Trekking</li>
-                        <li>Adventure Expeditions</li>
-                    </ul>
-
-                    <a href="booking.html" class="btn btn-primary">
-                        Book Tour
-                    </a>
-
-                </div>
-
-            </div>
-
-            <!-- CULTURAL TOURS -->
-
-            <div class="destination-card destination-item">
-
-                <img src="images/destinations/cultural-village.jpg"
-                     alt="Karamoja Cultural Tours">
-
-                <div class="destination-info">
-
-                    <h3>Karamoja Cultural, Kraal & Community Tours</h3>
-
-                    <p>
-                        Experience authentic Karamojong culture through
-                        traditional homesteads, dances, storytelling and local life.
-                    </p>
-
-                    <ul class="destination-features">
-                        <li>Cultural Experiences</li>
-                        <li>Kraal Visits</li>
-                        <li>Community Tourism</li>
-                    </ul>
-
-                    <a href="booking.html" class="btn btn-primary">
-                        Book Tour
-                    </a>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-<!-- ================= CTA ================= -->
 <section class="newsletter">
-
-    <div class="container">
-
-        <h2>Ready To Explore Karamoja?</h2>
-
-        <p>
-            Book a destination experience today and
-            discover the beauty of Uganda.
-        </p>
-
-        <a href="booking.html"
-           class="btn btn-primary"
-           style="margin-top:20px;">
-            Start Your Journey
-        </a>
-
-    </div>
-
+  <div class="container">
+    <h2>Ready to Explore Karamoja and Beyond?</h2>
+    <p>Book a destination experience today and discover the beauty of Uganda.</p>
+    <a href="booking.html" class="btn btn-primary" style="margin-top:24px;background:var(--bark);">Start Your Journey</a>
+  </div>
 </section>
 
-<!-- ================= FOOTER ================= -->
 <footer class="footer">
-
-    <div class="container footer-grid">
-
-        <div>
-            <h3>Kadam Tours</h3>
-            <p>
-                Explore Karamoja.
-                Experience Uganda.
-            </p>
-        </div>
-
-        <div>
-            <h4>Quick Links</h4>
-            <ul>
-                <li><a href="about.html">About</a></li>
-                <li><a href="packages.html">Packages</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-        </div>
-
-        <div>
-            <h4>Contact</h4>
-            <p>tourskadam@gmail.com</p>
-            <p>+256 789 852 976</p>
-        </div>
-
-        <div>
-            <h4>Follow Us</h4>
-
-            <div class="socials">
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-x-twitter"></i></a>
-                <a href="#"><i class="fab fa-youtube"></i></a>
-            </div>
-
-        </div>
-
+  <div class="container footer-grid">
+    <div>
+      <h3><span class="mt-prefix">Mt.</span>Kadam Tours</h3>
+      <p>Explore Karamoja. Experience Uganda.</p>
+      <div class="socials" style="margin-top:18px;">
+        <a href="https://www.facebook.com/profile.php?id=61591632643413" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://www.instagram.com/kadam_tours" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://x.com/mtkadamtours" target="_blank" aria-label="X (Twitter)"><i class="fab fa-x-twitter"></i></a>
+        <a href="https://www.youtube.com/@MtKadamTours" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+      </div> 
     </div>
-
-    <div class="copyright">
-        <p>© 2026 Kadam Tours. All Rights Reserved.</p>
+    <div>
+      <h4>Explore</h4>
+      <ul>
+        <li><a href="destinations.html">Destinations</a></li>
+        <li><a href="packages.html">Packages</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+      </ul>
     </div>
-
+    <div>
+      <h4>Company</h4>
+      <ul>
+        <li><a href="about.html">About</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <p>tourskadam@gmail.com</p>
+      <p>+256 789 852 976</p>
+      <a href="contact.html" class="btn btn-outline btn-sm" style="margin-top:10px;">Get in Touch</a>
+    </div>
+  </div>
+  <div class="copyright"><p>© 2026 Mt.Kadam Tours. All Rights Reserved.</p></div>
 </footer>
 
-<!-- WhatsApp -->
-<a href="https://wa.me/256789852976"
-   class="whatsapp"
-   target="_blank">
-    <i class="fab fa-whatsapp"></i>
-</a>
-
+<a href="https://wa.me/256778632598" class="whatsapp" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
 <script src="js/main.js"></script>
-
-<script>
-/* Destination Search */
-
-const searchInput =
-document.getElementById("destinationSearch");
-
-const destinations =
-document.querySelectorAll(".destination-item");
-
-searchInput.addEventListener("keyup", function(){
-
-    const value =
-    this.value.toLowerCase();
-
-    destinations.forEach(item => {
-
-        const text =
-        item.textContent.toLowerCase();
-
-        if(text.includes(value)){
-            item.style.display = "block";
-        }else{
-            item.style.display = "none";
-        }
-
-    });
-
-});
-</script>
-
 </body>
 </html>

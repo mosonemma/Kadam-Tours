@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact | Mt.Kadam Tours</title>
+<meta name="description" content="Get in touch with Mt.Kadam Tours to plan your Karamoja adventure.">
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="header">
+  <div class="container nav-container">
+    <a href="index.html" class="logo"><span class="mt-prefix">Mt.</span>Kadam<span>Tours</span></a>
+    <nav class="navbar">
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="destinations.html">Destinations</a></li>
+        <li><a href="packages.html">Packages</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="testimonials.html">Testimonials</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="contact.html" class="active">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="nav-actions">
+      <a href="booking.html" class="btn btn-primary">Book Now</a>
+      <button id="menu-btn" aria-label="Menu"><i class="fas fa-bars"></i></button>
+    </div>
+  </div>
+</header>
+
+<section class="page-header">
+  <div class="container">
+    <div class="breadcrumb"><a href="index.html">Home</a> / Contact</div>
+    <h1>Let's plan your trip</h1>
+    <p>Questions, custom itineraries, or just want to talk logistics — we usually reply within a day.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="form-grid">
+
+      <div class="reveal">
+        <div id="contactSuccess" class="form-success">Thanks — your message is in. We'll be in touch within 24 hours.</div>
+        <!-- FORMSPREE: replace YOUR_FORM_ID below with the ID from your Formspree form -->
+        <form id="contactForm" action="https://formspree.io/f/xeeyqdzy" method="POST">
+          <input type="text" name="_gotcha" style="display:none">
+          <input type="hidden" name="_subject" value="New contact form message — Mt.Kadam Tours">
+          <div class="field-row">
+            <div class="field">
+              <label for="cName">Full Name</label>
+              <input type="text" id="cName" name="name" required>
+            </div>
+            <div class="field">
+              <label for="cEmail">Email</label>
+              <input type="email" id="cEmail" name="email" required>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="cPhone">Phone (optional)</label>
+              <input type="tel" id="cPhone" name="phone">
+            </div>
+            <div class="field">
+              <label for="cSubject">Subject</label>
+              <select id="cSubject" name="subject">
+                <option>General Inquiry</option>
+                <option>Custom Itinerary</option>
+                <option>Existing Booking</option>
+                <option>Partnership / Media</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label for="cMessage">Message</label>
+            <textarea id="cMessage" name="message" rows="6" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">
+            <span class="btn-text">Send Message</span>
+          </button>
+          <p class="form-note">We reply from tourskadam@gmail.com — add us to your contacts so it doesn't land in spam.</p>
+          <p id="contactError" class="form-note" style="display:none;color:var(--bead-red);">Something went wrong sending your message — please email us directly at tourskadam@gmail.com.</p>
+        </form>
+      </div>
+
+      <div class="reveal">
+        <div class="info-card">
+          <h3>Reach Us Directly</h3>
+          <div class="info-row"><i class="fas fa-envelope"></i><p><a href="mailto:tourskadam@gmail.com">tourskadam@gmail.com</a></p></div>
+          <div class="info-row"><i class="fas fa-phone"></i><p><a href="tel:+256789852976">+256 789 852 976</a></p></div>
+          <div class="info-row"><i class="fab fa-whatsapp"></i><p><a href="https://wa.me/256789852976" target="_blank">Chat on WhatsApp</a></p></div>
+          <div class="info-row"><i class="fas fa-location-dot"></i><p>Moroto, Karamoja Sub-region, Uganda</p></div>
+          <div class="info-row"><i class="fas fa-clock"></i><p>Mon – Sat, 8:00 AM – 6:00 PM (EAT)</p></div>
+          <div class="map-embed">
+            <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=34.55%2C2.45%2C34.85%2C2.65&layer=mapnik" loading="lazy" title="Map of Moroto, Uganda"></iframe>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container footer-grid">
+    <div>
+      <h3><span class="mt-prefix">Mt.</span>Kadam Tours</h3>
+      <p>Discover Karamoja. Experience Uganda.</p>
+      <div class="socials" style="margin-top:18px;">
+        <a href="https://www.facebook.com/profile.php?id=61591632643413" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://www.instagram.com/kadam_tours" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://x.com/mtkadamtours" target="_blank" aria-label="X (Twitter)"><i class="fab fa-x-twitter"></i></a>
+        <a href="https://www.youtube.com/@MtKadamTours" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+      </div>
+    </div>
+    <div>
+      <h4>Explore</h4>
+      <ul>
+        <li><a href="destinations.html">Destinations</a></li>
+        <li><a href="packages.html">Packages</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Company</h4>
+      <ul>
+        <li><a href="about.html">About</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <p>tourskadam@gmail.com</p>
+      <p>+256 789 852 976</p>
+      <a href="booking.html" class="btn btn-outline btn-sm" style="margin-top:10px;">Book Now</a>
+    </div>
+  </div>
+  <div class="copyright"><p>© 2026 Mt.Kadam Tours. All Rights Reserved.</p></div>
+</footer>
+
+<a href="https://wa.me/256778632598" class="whatsapp" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+<script src="js/main.js"></script>
+</body>
+</html>

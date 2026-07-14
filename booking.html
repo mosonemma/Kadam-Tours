@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book a Tour | Mt.Kadam Tours</title>
+<meta name="description" content="Book your Karamoja adventure with Mt.Kadam Tours — choose a package, pick your dates, and reserve your spot.">
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="header">
+  <div class="container nav-container">
+    <a href="index.html" class="logo"><span class="mt-prefix">Mt.</span>Kadam<span>Tours</span></a>
+    <nav class="navbar">
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="destinations.html">Destinations</a></li>
+        <li><a href="packages.html">Packages</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="testimonials.html">Testimonials</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="nav-actions">
+      <a href="booking.html" class="btn btn-primary">Book Now</a>
+      <button id="menu-btn" aria-label="Menu"><i class="fas fa-bars"></i></button>
+    </div>
+  </div>
+</header>
+
+<section class="page-header">
+  <div class="container">
+    <div class="breadcrumb"><a href="index.html">Home</a> / Booking</div>
+    <h1>Reserve your trail</h1>
+    <p>Fill in your details below — we confirm availability by email within 24 hours.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+
+    <div class="booking-steps reveal">
+      <div class="booking-step active"><div class="num">1</div><span>Trip Details</span></div>
+      <div class="booking-step"><div class="num">2</div><span>Confirmation</span></div>
+      <div class="booking-step"><div class="num">3</div><span>Departure</span></div>
+    </div>
+
+    <div class="form-grid">
+      <div class="reveal">
+        <div id="bookingSuccess" class="form-success">Request received — check your email for a confirmation and next steps.</div>
+        <!-- FORMSPREE: replace YOUR_FORM_ID below with the ID from your Formspree form (use a separate form from Contact so submissions are easy to tell apart) -->
+        <form id="bookingForm" action="https://formspree.io/f/xkodnevo" method="POST">
+          <input type="text" name="_gotcha" style="display:none">
+          <input type="hidden" name="_subject" value="New booking request — Mt.Kadam Tours">
+          <input type="hidden" id="sumTotalField" name="estimated_total" value="">
+
+          <div class="field">
+            <label for="packageSelect">Choose Package</label>
+            <select id="packageSelect" name="package" required>
+              <option value="" data-price="0">Select a package</option>
+              <option value="explorer" data-price="350">Karamoja Explorer — $350 / person</option>
+              <option value="kidepo" data-price="650">Kidepo Safari Adventure — $650 / person</option>
+              <option value="impact" data-price="250">Community Impact Tour — $250 / person</option>
+            </select>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="startDate">Preferred Start Date</label>
+              <input type="date" id="startDate" name="start_date" required>
+            </div>
+            <div class="field">
+              <label for="travelers">Number of Travelers</label>
+              <input type="number" id="travelers" name="travelers" min="1" max="20" value="1" required>
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="bName">Full Name</label>
+              <input type="text" id="bName" name="name" required>
+            </div>
+            <div class="field">
+              <label for="bEmail">Email</label>
+              <input type="email" id="bEmail" name="email" required>
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="bPhone">Phone / WhatsApp</label>
+              <input type="tel" id="bPhone" name="phone" required>
+            </div>
+            <div class="field">
+              <label for="bCountry">Country of Residence</label>
+              <input type="text" id="bCountry" name="country" required>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="bNotes">Special Requests (dietary, accessibility, add-ons)</label>
+            <textarea id="bNotes" name="notes" rows="4"></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block">Request Booking</button>
+          <p class="form-note">This reserves your spot pending confirmation. No payment is taken yet — we'll send secure payment details once your dates are confirmed.</p>
+          <p id="bookingError" class="form-note" style="display:none;color:var(--bead-red);">Something went wrong sending your request — please email us directly at tourskadam@gmail.com.</p>
+        </form>
+      </div>
+
+      <div class="reveal">
+        <div class="summary-card">
+          <h3>Trip Summary</h3>
+          <div class="summary-row"><span>Package</span><span id="sumPackage">—</span></div>
+          <div class="summary-row"><span>Travelers</span><span id="sumTravelers">1</span></div>
+          <div class="summary-row"><span>Guide & Transport</span><span>Included</span></div>
+          <div class="summary-row"><span>Deposit Required</span><span>30%</span></div>
+          <div class="summary-total"><span>Estimated Total</span><span id="sumTotal">$0</span></div>
+        </div>
+
+        <div class="info-card" style="margin-top:24px;">
+          <h3>Need Help Deciding?</h3>
+          <div class="info-row"><i class="fab fa-whatsapp"></i><p><a href="https://wa.me/256789852976" target="_blank">Chat with us on WhatsApp</a></p></div>
+          <div class="info-row"><i class="fas fa-envelope"></i><p><a href="mailto:tourskadam@gmail.com">tourskadam@gmail.com</a></p></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container footer-grid">
+    <div>
+      <h3><span class="mt-prefix">Mt.</span>Kadam Tours</h3>
+      <p>Discover Karamoja. Experience Uganda.</p>
+      <div class="socials" style="margin-top:18px;">
+        <a href="https://www.facebook.com/profile.php?id=61591632643413" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://www.instagram.com/kadam_tours" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://x.com/mtkadamtours" target="_blank" aria-label="X (Twitter)"><i class="fab fa-x-twitter"></i></a>
+        <a href="https://www.youtube.com/@MtKadamTours" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+      </div>
+    </div>
+    <div>
+      <h4>Explore</h4>
+      <ul>
+        <li><a href="destinations.html">Destinations</a></li>
+        <li><a href="packages.html">Packages</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Company</h4>
+      <ul>
+        <li><a href="about.html">About</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <p>tourskadam@gmail.com</p>
+      <p>+256 789 852 976</p>
+      <a href="contact.html" class="btn btn-outline btn-sm" style="margin-top:10px;">Get in Touch</a>
+    </div>
+  </div>
+  <div class="copyright"><p>© 2026 Mt.Kadam Tours. All Rights Reserved.</p></div>
+</footer>
+
+<a href="https://wa.me/256778632598" class="whatsapp" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+<script src="js/main.js"></script>
+</body>
+</html>
