@@ -207,7 +207,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  /* ---------- CONTACT FORM (Formspree) ---------- */
+  /* ---------- CONTACT FORM (Backend API) ---------- */
   const contactForm = document.getElementById("contactForm");
   if (contactForm) {
     contactForm.addEventListener("submit", async function (e) {
@@ -222,10 +222,15 @@ document.addEventListener("DOMContentLoaded", () => {
       submitBtn.textContent = "Sending...";
 
       try {
+        const formData = new FormData(contactForm);
         const response = await fetch(contactForm.action, {
           method: "POST",
-          body: new FormData(contactForm),
-          headers: { "Accept": "application/json" }
+          body: JSON.stringify({
+            name: formData.get("name"),
+            email: formData.get("email"),
+            message: formData.get("message"),
+          }),
+          headers: { "Content-Type": "application/json" }
         });
 
         if (response.ok) {
