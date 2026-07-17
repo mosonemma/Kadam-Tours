@@ -50,7 +50,7 @@
 
       <div class="reveal">
         <div id="contactSuccess" class="form-success">Thanks — your message is in. We'll be in touch within 24 hours.</div>
-        <form id="contactForm">
+        <form id="contactForm" action="https://mtkadam-backend.onrender.com/api/contact" method="POST">
           <input type="text" name="_gotcha" style="display:none">
           <input type="hidden" name="_subject" value="New contact form message — Mt.Kadam Tours">
           <div class="field-row">
@@ -148,33 +148,5 @@
 
 <a href="https://wa.me/256778632598" class="whatsapp" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
 <script src="js/main.js"></script>
-<script>
-document.getElementById('contactForm').addEventListener('submit', async function (e) {
-  e.preventDefault();
-
-  const data = {
-    name: document.getElementById('cName').value,
-    email: document.getElementById('cEmail').value,
-    message: document.getElementById('cMessage').value,
-  };
-
-  try {
-    const res = await fetch('https://mtkadam-backend.onrender.com/api/contact', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-    });
-
-    if (res.ok) {
-      document.getElementById('contactForm').style.display = 'none';
-      document.getElementById('contactSuccess').style.display = 'block';
-    } else {
-      document.getElementById('contactError').style.display = 'block';
-    }
-  } catch (err) {
-    document.getElementById('contactError').style.display = 'block';
-  }
-});
-</script>
 </body>
 </html>
