@@ -249,7 +249,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  /* ---------- BOOKING FORM + LIVE SUMMARY (Formspree) ---------- */
+  /* ---------- BOOKING FORM + LIVE SUMMARY (Backend API) ---------- */
   const bookingForm = document.getElementById("bookingForm");
   if (bookingForm) {
     const packageSelect = document.getElementById("packageSelect");
@@ -285,10 +285,19 @@ document.addEventListener("DOMContentLoaded", () => {
       submitBtn.textContent = "Sending...";
 
       try {
-        const response = await fetch(bookingForm.action, {
+        const formData = new FormData(bookingForm);
+        const response = await fetch("https://mtkadam-backend.onrender.com/api/bookings", {
           method: "POST",
-          body: new FormData(bookingForm),
-          headers: { "Accept": "application/json" }
+          body: JSON.stringify({
+            package_id: parseInt(formData.get("package"), 10),
+            full_name: formData.get("name"),
+            email: formData.get("email"),
+            phone: formData.get("phone"),
+            travelers: parseInt(formData.get("travelers"), 10),
+            tour_date: formData.get("start_date"),
+            notes: formData.get("notes"),
+          }),
+          headers: { "Content-Type": "application/json" }
         });
 
         if (response.ok) {

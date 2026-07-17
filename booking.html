@@ -64,12 +64,9 @@
 
           <div class="field">
             <label for="packageSelect">Choose Package</label>
-            <select id="packageSelect" name="package" required>
-              <option value="" data-price="0">Select a package</option>
-              <option value="explorer" data-price="350">Karamoja Explorer — $350 / person</option>
-              <option value="kidepo" data-price="650">Kidepo Safari Adventure — $650 / person</option>
-              <option value="impact" data-price="250">Community Impact Tour — $250 / person</option>
-            </select>
+           <select id="packageSelect" name="package" required>
+            <option value="" data-price="0">Loading packages...</option>
+          </select>
           </div>
 
           <div class="field-row">
@@ -177,5 +174,26 @@
 
 <a href="https://wa.me/256778632598" class="whatsapp" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
 <script src="js/main.js"></script>
+<script>
+async function loadPackages() {
+  const select = document.getElementById('packageSelect');
+  try {
+    const res = await fetch('https://mtkadam-backend.onrender.com/api/packages');
+    const packages = await res.json();
+
+    select.innerHTML = '<option value="" data-price="0">Select a package</option>';
+    packages.forEach(pkg => {
+      const option = document.createElement('option');
+      option.value = pkg.id;
+      option.dataset.price = pkg.price_usd;
+      option.textContent = `${pkg.title} — $${pkg.price_usd} / person`;
+      select.appendChild(option);
+    });
+  } catch (err) {
+    select.innerHTML = '<option value="">Failed to load packages — please refresh</option>';
+  }
+}
+loadPackages();
+</script>
 </body>
 </html>
