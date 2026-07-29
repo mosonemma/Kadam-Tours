@@ -289,5 +289,46 @@
 
 <a href="https://wa.me/256778632598" class="whatsapp" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
 <script src="js/main.js"></script>
+<script>
+  // Newsletter signup
+document.addEventListener('DOMContentLoaded', function () {
+  const form = document.querySelector('.newsletter-form');
+  if (!form) return;
+
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    const emailInput = form.querySelector('input[type="email"]');
+    const button = form.querySelector('button[type="submit"]');
+    const email = emailInput.value.trim();
+
+    if (!email) return;
+
+    button.disabled = true;
+    const originalText = button.textContent;
+    button.textContent = 'Subscribing...';
+
+    try {
+      const res = await fetch('https://mtkadam-backend.onrender.com/api/newsletter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email })
+      });
+
+      if (res.ok) {
+        form.innerHTML = '<p style="color:#2F6F4E; font-weight:600;">Thanks — you\'re subscribed!</p>';
+      } else {
+        button.textContent = originalText;
+        button.disabled = false;
+        alert('Something went wrong. Please try again.');
+      }
+    } catch (err) {
+      button.textContent = originalText;
+      button.disabled = false;
+      alert('Something went wrong. Please check your connection and try again.');
+    }
+  });
+});
+</script>
 </body>
 </html>
