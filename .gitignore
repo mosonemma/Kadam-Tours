@@ -1,0 +1,14 @@
+# Local environment and configuration
+.env
+.env.*
+!.env.example
+
+# Editor settings
+.vscode/
+
+# Local assistant configuration
+.claudio/
+
+# Operating system files
+.DS_Store
+Thumbs.db
