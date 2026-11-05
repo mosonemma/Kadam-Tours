@@ -35,6 +35,37 @@ document.addEventListener("DOMContentLoaded", () => {
   stickyHeader();
   window.addEventListener("scroll", stickyHeader);
 
+  /* ---------- PAGE HERO SLIDESHOWS ---------- */
+  document.querySelectorAll(".hero[data-hero-images], .page-header[data-hero-images]").forEach(hero => {
+    const images = hero.dataset.heroImages.split("|").map(image => image.trim()).filter(Boolean);
+    if (!images.length) return;
+
+    const requestedStart = Number.parseInt(hero.dataset.startSlide || "0", 10);
+    let slideIndex = Number.isInteger(requestedStart) && requestedStart >= 0 && requestedStart < images.length
+      ? requestedStart
+      : 0;
+    const layers = [document.createElement("div"), document.createElement("div")];
+    layers.forEach(layer => {
+      layer.className = "hero-slide-layer";
+      layer.setAttribute("aria-hidden", "true");
+      hero.prepend(layer);
+    });
+    hero.classList.add("has-hero-slides");
+    let activeLayer = 0;
+    layers[activeLayer].style.backgroundImage = `url("${images[slideIndex]}")`;
+    layers[activeLayer].classList.add("is-active");
+
+    if (images.length < 2 || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    window.setInterval(() => {
+      slideIndex = (slideIndex + 1) % images.length;
+      activeLayer = 1 - activeLayer;
+      layers[activeLayer].style.backgroundImage = `url("${images[slideIndex]}")`;
+      layers[activeLayer].classList.add("is-active");
+      layers[1 - activeLayer].classList.remove("is-active");
+    }, 6500);
+  });
+
   /* ---------- COUNTER ANIMATION ---------- */
   const statsSection = document.querySelector(".stats");
   if (statsSection) {
