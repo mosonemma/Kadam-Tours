@@ -204,7 +204,10 @@ p{ color:var(--bark-soft); }
    ================================================================== */
 .hero{
   position:relative; min-height:92vh; display:flex; align-items:center;
-  background:linear-gradient(180deg,#3A3126 0%, #2B241D 55%, var(--dusk) 100%);
+  background:
+    linear-gradient(90deg,rgba(24,20,16,0.82) 0%,rgba(24,20,16,0.5) 52%,rgba(24,20,16,0.18) 100%),
+    url("../images/gallery/Karamoja savannah at sunset.jpg") center 48% / cover no-repeat,
+    linear-gradient(180deg,#3A3126 0%, #2B241D 55%, var(--dusk) 100%);
   overflow:hidden;
 }
 .hero-overlay{
@@ -426,6 +429,26 @@ p{ color:var(--bark-soft); }
    ================================================================== */
 .page-header{
   background:var(--dusk); color:var(--cream); padding:170px 0 70px; position:relative; overflow:hidden;
+}
+.page-header > .container{ position:relative; z-index:1; }
+.page-header::before{
+  content:''; position:absolute; inset:0; z-index:0;
+  background-position:center 45%; background-size:cover; background-repeat:no-repeat;
+}
+.page-header--destinations::before{
+  background-image:linear-gradient(90deg,rgba(28,23,18,0.84),rgba(28,23,18,0.32)),url("../images/gallery/Kidepo-valley-national-park-1.jpg");
+}
+.page-header--packages::before{
+  background-image:linear-gradient(90deg,rgba(28,23,18,0.82),rgba(28,23,18,0.3)),url("../images/gallery/Karamoja savannah at sunset.jpg");
+}
+.page-header--about::before{
+  background-image:linear-gradient(90deg,rgba(28,23,18,0.84),rgba(28,23,18,0.34)),url("../images/destinations/cultural-village.jpg");
+}
+.page-header--kidepo::before{
+  background-image:linear-gradient(90deg,rgba(28,23,18,0.84),rgba(28,23,18,0.34)),url("../images/gallery/Kidepo-valley-national-park-1.jpg");
+}
+.page-header--mountain::before{
+  background-image:linear-gradient(90deg,rgba(28,23,18,0.84),rgba(28,23,18,0.34)),url("../images/gallery/Mount Kadam ridgeline.jpg");
 }
 .page-header::after{
   content:''; position:absolute; left:0; right:0; bottom:0; height:60px;
