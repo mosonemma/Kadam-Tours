@@ -261,13 +261,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function updateSummary() {
       const opt = packageSelect.options[packageSelect.selectedIndex];
-      const price = parseInt(opt.dataset.price || "0", 10);
       const travelers = parseInt(travelersInput.value || "1", 10);
+      const priceKey = travelers === 1 ? "priceSolo" : travelers <= 5 ? "priceSmall" : "priceLarge";
+      const price = Number(opt.dataset[priceKey] || 0);
       const total = price * travelers;
-      sumPackage.textContent = opt.value ? opt.text.split(" — ")[0] : "—";
+      const quoteRequired = Boolean(opt.value) && price === 0;
+      sumPackage.textContent = opt.value ? opt.text.split(" (quote required)")[0] : "—";
       sumTravelers.textContent = travelers;
-      sumTotal.textContent = "$" + total.toLocaleString();
-      if (sumTotalField) sumTotalField.value = "$" + total.toLocaleString();
+      sumTotal.textContent = quoteRequired ? "Quote required" : "$" + total.toLocaleString();
+      if (sumTotalField) sumTotalField.value = quoteRequired ? "Quote required" : "$" + total.toLocaleString();
     }
     packageSelect.addEventListener("change", updateSummary);
     travelersInput.addEventListener("input", updateSummary);
@@ -276,7 +278,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Preselect a package when arriving from a package page (?package=slug)
     const preselect = new URLSearchParams(window.location.search).get("package");
     if (preselect) {
-      const match = [...packageSelect.options].find(o => o.dataset.slug === preselect);
+      const match = [...packageSelect.options].find(o => o.dataset.slug === preselect || o.value === preselect);
       if (match) { packageSelect.value = match.value; updateSummary(); }
     }
 
@@ -293,18 +295,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
       try {
         const formData = new FormData(bookingForm);
-        const response = await fetch("https://mtkadam-backend.onrender.com/api/bookings", {
+        const response = await fetch(bookingForm.action, {
           method: "POST",
-          body: JSON.stringify({
-            package_id: parseInt(formData.get("package"), 10),
-            full_name: formData.get("name"),
-            email: formData.get("email"),
-            phone: formData.get("phone"),
-            travelers: parseInt(formData.get("travelers"), 10),
-            tour_date: formData.get("start_date"),
-            notes: formData.get("notes"),
-          }),
-          headers: { "Content-Type": "application/json" }
+          body: formData,
+          headers: { "Accept": "application/json" }
         });
 
         if (response.ok) {
