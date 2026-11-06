@@ -290,11 +290,21 @@ document.addEventListener("DOMContentLoaded", () => {
     const sumTotal = document.getElementById("sumTotal");
     const sumTotalField = document.getElementById("sumTotalField");
 
+    function getPackageRate(opt, travelers) {
+      const priceSolo = Number(opt.dataset.priceSolo || 0);
+      const priceSmall = Number(opt.dataset.priceSmall || priceSolo);
+      const priceLarge = Number(opt.dataset.priceLarge || priceSmall);
+
+      if (travelers === 1) return priceSolo;
+      if (travelers >= 2 && travelers <= 5) return priceSmall;
+      if (travelers >= 6 && travelers <= 10) return priceLarge;
+      return priceLarge;
+    }
+
     function updateSummary() {
       const opt = packageSelect.options[packageSelect.selectedIndex];
       const travelers = parseInt(travelersInput.value || "1", 10);
-      const priceKey = travelers === 1 ? "priceSolo" : travelers <= 5 ? "priceSmall" : "priceLarge";
-      const price = Number(opt.dataset[priceKey] || 0);
+      const price = getPackageRate(opt, travelers);
       const total = price * travelers;
       const quoteRequired = Boolean(opt.value) && price === 0;
       sumPackage.textContent = opt.value ? opt.text.split(" (quote required)")[0] : "—";
@@ -376,5 +386,124 @@ document.addEventListener("DOMContentLoaded", () => {
     backToTop.style.display = window.scrollY > 400 ? "block" : "none";
   });
   backToTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+
+  /* ---------- LEGAL MODAL ---------- */
+  const policyContent = {
+    privacy: {
+      title: "Privacy Policy",
+      subtitle: "Data Protection and Privacy Act, 2019 (Uganda)",
+      paragraphs: [
+        "Mt. Kadam Tours respects the privacy of every visitor and processes personal data in accordance with the Data Protection and Privacy Act, 2019 of the Republic of Uganda and applicable data protection principles.",
+        "We collect personal data when you contact us, submit a booking inquiry, subscribe to updates, request a quote, or use our website. This may include your name, email address, phone number, country of residence, trip preferences, travel dates, and booking-related information.",
+        "We use this information to respond to enquiries, prepare itinerary proposals, confirm bookings, coordinate travel arrangements, communicate updates, and provide support before, during, and after travel. We may also use it to maintain records, improve customer service, and comply with our legal and contractual obligations.",
+        "We do not sell personal data. We may share information with trusted third parties only where necessary to deliver our services, such as booking systems, payment processors, communication tools, and local service providers involved in transportation, accommodation, or activity arrangements.",
+        "We apply reasonable administrative, technical, and organisational safeguards to protect personal information against unauthorised access, misuse, loss, or disclosure. However, no electronic system can be completely secure, and we encourage users to exercise care when sharing information online.",
+        "You have the right to access, update, correct, or request deletion of your personal data where applicable, and to withdraw consent for marketing communications. You may also request information about how your data is used. Please contact us using the details in the contact section of our website if you wish to exercise these rights.",
+        "We may retain personal data only for as long as necessary for the purposes for which it was collected, to fulfil legal obligations, to resolve disputes, and to maintain business records."
+      ]
+    },
+    cookie: {
+      title: "Cookie Policy",
+      subtitle: "Small files stored in the visitor’s browser",
+      paragraphs: [
+        "Cookies are small text files stored on a visitor's browser or device when they access a website. They help websites remember preferences, improve performance, and understand how users interact with the site.",
+        "At Mt. Kadam Tours, we may use cookies to remember visitor preferences, keep forms and booking settings consistent, improve website performance, support booking functionality, and understand website traffic. We also use cookies to help review the effectiveness of marketing campaigns and measure visits to our site.",
+        "We may use cookies for analytics services such as Google Analytics to understand traffic patterns, the pages that are visited most often, referral sources, and general user behaviour. This helps us improve the website and make it easier to use.",
+        "Some cookies are strictly necessary for website operations and booking features. Others are optional and may be used for analytical, marketing, or functional purposes. We may also use cookies to support advertising and campaign tracking, where such use is permitted by law and disclosed to the visitor.",
+        "Visitors can manage or disable cookies through their browser settings. Please note that disabling some cookies may impact features such as saved preferences, booking workflows, or website analytics."
+      ]
+    },
+    terms: {
+      title: "Terms & Conditions",
+      subtitle: "Booking terms for tours and travel arrangements",
+      paragraphs: [
+        "By using the Mt. Kadam Tours website or making a booking, you agree to these Terms & Conditions. These terms apply to tour packages, safari itineraries, cultural tours, hiking experiences, and any other travel services arranged by us.",
+        "Tour prices are based on the itinerary, package, and group size selected at the time of booking. Prices may vary according to the number of travellers and the final itinerary agreed in writing. Unless otherwise stated, prices are per person and subject to availability.",
+        "Bookings are confirmed only after written confirmation from Mt. Kadam Tours or when an agreed deposit and itinerary have been accepted. Availability may change and is subject to the final confirmation issued to the client.",
+        "Changes to dates, accommodation, transport, or itinerary details may be requested and are subject to availability. Additional costs may apply where changes require rebooking, different transport arrangements, or revised local services. Mt. Kadam Tours will communicate any such changes where practical.",
+        "Participants are responsible for ensuring they hold valid travel documents, including passports, visas, and any required health or immigration documents. We strongly recommend that travellers arrange appropriate travel insurance covering cancellation, interruption, medical needs, and personal baggage.",
+        "Mt. Kadam Tours will make reasonable efforts to provide the services described in the itinerary, but some aspects may be affected by weather, road conditions, local regulations, permits, security concerns, or other circumstances outside our control. We reserve the right to change or postpone activities where necessary for safety or operational reasons.",
+        "We are not liable for losses, delays, accidents, injuries, or damages arising from third-party providers, weather, acts of God, local conditions, or other factors outside our reasonable control. Our responsibility is limited to the services we directly supply and the terms set out in the final booking confirmation.",
+        "Cancellation and refund policies are determined by the agreed booking terms and final quotation. Clients are encouraged to review the relevant itinerary and confirmation carefully before making payment.",
+        "If you have questions regarding your reservation, itinerary, pricing, or these terms, please contact Mt. Kadam Tours through the booking or contact channels on our website."
+      ]
+    }
+  };
+
+  const policyModal = document.createElement("div");
+  policyModal.className = "policy-modal";
+  policyModal.setAttribute("aria-hidden", "true");
+  policyModal.innerHTML = `
+    <div class="policy-modal-backdrop" data-policy-close="true"></div>
+    <div class="policy-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="policyModalTitle">
+      <button class="policy-close" type="button" aria-label="Close legal policy">&times;</button>
+      <div class="policy-modal-header">
+        <h3 id="policyModalTitle"></h3>
+        <p id="policyModalSubtitle"></p>
+      </div>
+      <div class="policy-modal-body" id="policyModalBody"></div>
+      <div class="policy-modal-actions">
+        <button type="button" class="btn btn-outline policy-close-btn">Close</button>
+        <button type="button" class="btn btn-primary policy-accept-btn">Accept Cookies</button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(policyModal);
+
+  const policyTitle = document.getElementById("policyModalTitle");
+  const policySubtitle = document.getElementById("policyModalSubtitle");
+  const policyBody = document.getElementById("policyModalBody");
+  const acceptCookiesBtn = policyModal.querySelector(".policy-accept-btn");
+  const closeButtons = policyModal.querySelectorAll("[data-policy-close='true'], .policy-close, .policy-close-btn");
+
+  function renderPolicy(type) {
+    const content = policyContent[type] || policyContent.privacy;
+    policyTitle.textContent = content.title;
+    policySubtitle.textContent = content.subtitle;
+    policyBody.innerHTML = content.paragraphs.map(p => `<p>${p}</p>`).join("");
+    acceptCookiesBtn.style.display = type === "cookie" ? "inline-flex" : "none";
+  }
+
+  function openPolicy(type) {
+    renderPolicy(type);
+    policyModal.classList.add("is-open");
+    policyModal.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closePolicy() {
+    policyModal.classList.remove("is-open");
+    policyModal.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+  }
+
+  closeButtons.forEach(button => button.addEventListener("click", closePolicy));
+  policyModal.addEventListener("click", (event) => {
+    if (event.target.classList.contains("policy-modal-backdrop") || event.target.classList.contains("policy-modal")) {
+      closePolicy();
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && policyModal.classList.contains("is-open")) {
+      closePolicy();
+    }
+  });
+
+  acceptCookiesBtn.addEventListener("click", () => {
+    try {
+      document.cookie = "mtkadam_cookie_consent=accepted; max-age=3153600; path=/; SameSite=Lax; Secure";
+    } catch (e) {
+      // ignore storage issues
+    }
+    closePolicy();
+  });
+
+  document.querySelectorAll("[data-policy]").forEach(link => {
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      openPolicy(link.dataset.policy);
+    });
+  });
 
 });
