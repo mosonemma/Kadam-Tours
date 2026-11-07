@@ -65,8 +65,7 @@
     <div class="form-grid">
       <div class="reveal">
         <div id="bookingSuccess" class="form-success">Request received — check your email for a confirmation and next steps.</div>
-        <!-- FORMSPREE: replace YOUR_FORM_ID below with the ID from your Formspree form (use a separate form from Contact so submissions are easy to tell apart) -->
-        <form id="bookingForm" action="https://formspree.io/f/xkodnevo" method="POST">
+        <form id="bookingForm" action="https://mtkadam-backend.onrender.com/api/bookings" method="POST">
           <input type="text" name="_gotcha" style="display:none">
           <input type="hidden" name="_subject" value="New booking request — Mt.Kadam Tours">
           <input type="hidden" id="sumTotalField" name="estimated_total" value="">
@@ -81,6 +80,7 @@
             <option value="karamoja-4-days-safari" data-slug="karamoja-4-days-safari" data-price-solo="1000" data-price-small="850" data-price-large="800">4 Days Karamoja Safari</option>
             <option value="karamoja-7-days" data-slug="karamoja-7-days" data-price-solo="500" data-price-small="450" data-price-large="400">7 Days Karamoja Adventure</option>
           </select>
+          <p id="packageLoadError" class="form-note" role="status" style="display:none;color:var(--bead-red);"></p>
           </div>
 
           <div class="field-row">

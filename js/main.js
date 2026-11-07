@@ -2,6 +2,84 @@
    MT.KADAM TOURS — MAIN JS
    ================================================== */
 
+const API_BASE_URL = window.MTKADAM_API_BASE_URL || "https://mtkadam-backend.onrender.com/api";
+
+const PACKAGE_ITINERARY_PATHS = {
+  "karamoja-exclusive-tour": "karamoja-exclusive-tour.html",
+  "mt-kadam-hike-1-day": "mt-kadam-hike.html",
+  "mt-kadam-hike-2-days": "mt-kadam-hike.html",
+  "karamoja-4-days-safari": "karamoja-4-days-safari.html",
+  "karamoja-7-days": "karamoja-7-days.html",
+};
+
+function formatPackagePrice(value) {
+  const price = Number(value);
+  return Number.isFinite(price)
+    ? price.toLocaleString("en-US", { maximumFractionDigits: 2 })
+    : "—";
+}
+
+function createPackageCard(pkg) {
+  const article = document.createElement("article");
+  article.className = "package-card package-card--tour";
+
+  const media = document.createElement("div");
+  media.className = "package-media";
+  const image = document.createElement("img");
+  image.src = pkg.image_url || "images/safaris/safari to karamoja/IMG_4439.webp";
+  image.alt = pkg.title;
+  image.width = 800;
+  image.height = 500;
+  image.loading = "lazy";
+  media.appendChild(image);
+
+  const content = document.createElement("div");
+  content.className = "package-card-content";
+
+  const meta = document.createElement("div");
+  meta.className = "package-meta";
+  meta.textContent = `${pkg.duration_days} ${Number(pkg.duration_days) === 1 ? "day" : "days"} · ${pkg.title}`;
+
+  const price = document.createElement("div");
+  price.className = "price";
+  price.textContent = `From $${formatPackagePrice(pkg.price_usd)}`;
+
+  const title = document.createElement("h3");
+  title.textContent = pkg.title;
+
+  const description = document.createElement("p");
+  description.className = "package-blurb";
+  description.textContent = pkg.description || "";
+
+  const features = document.createElement("ul");
+  (Array.isArray(pkg.features) ? pkg.features : []).forEach((feature) => {
+    const item = document.createElement("li");
+    item.textContent = feature;
+    features.appendChild(item);
+  });
+
+  const pricingNote = document.createElement("p");
+  pricingNote.className = "package-price-note";
+  pricingNote.textContent =
+    `Per person: 1 guest $${formatPackagePrice(pkg.price_solo_usd || pkg.price_usd)} · ` +
+    `2–5 guests $${formatPackagePrice(pkg.price_small_group_usd || pkg.price_usd)} each · ` +
+    `6–10 guests $${formatPackagePrice(pkg.price_large_group_usd || pkg.price_usd)} each.`;
+
+  const itineraryLink = document.createElement("a");
+  itineraryLink.className = "btn btn-outline btn-block";
+  itineraryLink.href = PACKAGE_ITINERARY_PATHS[pkg.slug] || "packages.html";
+  itineraryLink.textContent = "View Full Itinerary";
+
+  const bookingLink = document.createElement("a");
+  bookingLink.className = "btn btn-primary btn-block";
+  bookingLink.href = `booking.html?package=${encodeURIComponent(pkg.slug)}`;
+  bookingLink.textContent = "Book This Package";
+
+  content.append(meta, price, title, description, features, pricingNote, itineraryLink, bookingLink);
+  article.append(media, content);
+  return article;
+}
+
 document.addEventListener("DOMContentLoaded", () => {
 
   /* ---------- MOBILE MENU ---------- */
@@ -222,21 +300,50 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  /* ---------- NEWSLETTER FORM ---------- */
-  const newsletterForm = document.querySelector(".newsletter-form");
-  if (newsletterForm) {
-    newsletterForm.addEventListener("submit", function (e) {
+  /* ---------- NEWSLETTER FORM (Backend API) ---------- */
+  document.querySelectorAll(".newsletter-form").forEach((newsletterForm) => {
+    const emailInput = newsletterForm.querySelector('input[type="email"]');
+    const submitButton = newsletterForm.querySelector("button[type='submit']");
+    const status = document.createElement("p");
+    status.className = "form-note newsletter-status";
+    status.setAttribute("role", "status");
+    status.setAttribute("aria-live", "polite");
+    status.style.color = "var(--cream)";
+    newsletterForm.insertAdjacentElement("afterend", status);
+
+    newsletterForm.addEventListener("submit", async function (e) {
       e.preventDefault();
-      const email = this.querySelector("input");
-      const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!pattern.test(email.value.trim())) {
-        alert("Please enter a valid email address.");
-        return;
+      status.textContent = "";
+      submitButton.disabled = true;
+      const originalLabel = submitButton.textContent;
+      submitButton.textContent = "Subscribing...";
+
+      const url = `${API_BASE_URL}/newsletter`;
+
+      try {
+        const response = await fetch(url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email: emailInput.value.trim() }),
+        });
+
+        if (!response.ok) {
+          const result = await response.json().catch(() => ({}));
+          console.error("Newsletter failed:", url, response.status, result);
+          throw new Error(result.error || "Failed to subscribe");
+        }
+
+        newsletterForm.reset();
+        status.textContent = "Thanks — you're subscribed!";
+      } catch (err) {
+        console.error("Newsletter subscription failed:", err);
+        status.textContent = "Something went wrong. Please try again.";
+      } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = originalLabel;
       }
-      alert("Thank you for subscribing!");
-      email.value = "";
     });
-  }
+  });
 
   /* ---------- CONTACT FORM (Backend API) ---------- */
   const contactForm = document.getElementById("contactForm");
@@ -259,6 +366,8 @@ document.addEventListener("DOMContentLoaded", () => {
           body: JSON.stringify({
             name: formData.get("name"),
             email: formData.get("email"),
+            phone: formData.get("phone"),
+            subject: formData.get("subject"),
             message: formData.get("message"),
           }),
           headers: { "Content-Type": "application/json" }
@@ -282,6 +391,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* ---------- BOOKING FORM + LIVE SUMMARY (Backend API) ---------- */
   const bookingForm = document.getElementById("bookingForm");
+  let refreshBookingSummary = null;
   if (bookingForm) {
     const packageSelect = document.getElementById("packageSelect");
     const travelersInput = document.getElementById("travelers");
@@ -312,6 +422,7 @@ document.addEventListener("DOMContentLoaded", () => {
       sumTotal.textContent = quoteRequired ? "Quote required" : "$" + total.toLocaleString();
       if (sumTotalField) sumTotalField.value = quoteRequired ? "Quote required" : "$" + total.toLocaleString();
     }
+    refreshBookingSummary = updateSummary;
     packageSelect.addEventListener("change", updateSummary);
     travelersInput.addEventListener("input", updateSummary);
     updateSummary();
@@ -334,12 +445,29 @@ document.addEventListener("DOMContentLoaded", () => {
       submitBtn.disabled = true;
       submitBtn.textContent = "Sending...";
 
+      // Always send to the backend API, not to the <form action> attribute
+      const url = `${API_BASE_URL}/bookings`;
+
       try {
         const formData = new FormData(bookingForm);
-        const response = await fetch(bookingForm.action, {
+        const payload = {
+          package: formData.get("package"),
+          name: formData.get("name"),
+          email: formData.get("email"),
+          phone: formData.get("phone"),
+          country: formData.get("country"),
+          travelers: formData.get("travelers"),
+          start_date: formData.get("start_date"),
+          notes: formData.get("notes"),
+        };
+
+        const response = await fetch(url, {
           method: "POST",
-          body: formData,
-          headers: { "Accept": "application/json" }
+          headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(payload),
         });
 
         if (response.ok) {
@@ -348,15 +476,82 @@ document.addEventListener("DOMContentLoaded", () => {
           updateSummary();
           successBox.scrollIntoView({ behavior: "smooth", block: "center" });
         } else {
+          const body = await response.text();
+          console.error("Booking failed:", url, response.status, body, "Payload:", payload);
           errorBox.style.display = "block";
         }
       } catch (err) {
+        console.error("Booking request error:", url, err);
         errorBox.style.display = "block";
       } finally {
         submitBtn.disabled = false;
         submitBtn.textContent = originalLabel;
       }
     });
+  }
+
+  /* ---------- PACKAGES FROM BACKEND ---------- */
+  const packageGrids = document.querySelectorAll("[data-packages-api]");
+  const packageSelect = document.getElementById("packageSelect");
+  if (packageGrids.length || packageSelect) {
+    fetch(`${API_BASE_URL}/packages`)
+      .then(async (response) => {
+        if (!response.ok) throw new Error(`Package request failed (${response.status})`);
+        const packages = await response.json();
+        if (!Array.isArray(packages)) throw new Error("Package response was not a list");
+
+        packageGrids.forEach((grid) => {
+          grid.replaceChildren(...packages.map(createPackageCard));
+          grid.setAttribute("aria-busy", "false");
+        });
+
+        if (packageSelect) {
+          const selectedPackage = new URLSearchParams(window.location.search).get("package");
+          const preselectedSlug = selectedPackage === "mt-kadam-hike"
+            ? "mt-kadam-hike-1-day"
+            : selectedPackage;
+          const placeholder = document.createElement("option");
+          placeholder.value = "";
+          placeholder.textContent = "Select a package";
+          packageSelect.replaceChildren(placeholder);
+
+          packages.forEach((pkg) => {
+            const option = document.createElement("option");
+            option.value = pkg.slug;
+            option.textContent = pkg.title;
+            option.dataset.slug = pkg.slug.startsWith("mt-kadam-hike-")
+              ? "mt-kadam-hike"
+              : pkg.slug;
+            option.dataset.priceSolo = pkg.price_solo_usd || pkg.price_usd;
+            option.dataset.priceSmall = pkg.price_small_group_usd || pkg.price_usd;
+            option.dataset.priceLarge = pkg.price_large_group_usd || pkg.price_usd;
+            packageSelect.appendChild(option);
+          });
+
+          const match = [...packageSelect.options].find(
+            (option) => option.value === preselectedSlug || option.dataset.slug === selectedPackage
+          );
+          if (match) packageSelect.value = match.value;
+          if (refreshBookingSummary) refreshBookingSummary();
+        }
+      })
+      .catch((err) => {
+        console.error("Could not load tour packages:", err);
+        packageGrids.forEach((grid) => {
+          grid.setAttribute("aria-busy", "false");
+          const status = document.createElement("p");
+          status.className = "form-note";
+          status.setAttribute("role", "status");
+          status.textContent = "Could not load current package details. Displayed prices may be outdated.";
+          grid.insertAdjacentElement("afterend", status);
+        });
+
+        const packageLoadError = document.getElementById("packageLoadError");
+        if (packageLoadError) {
+          packageLoadError.textContent = "Could not load current package prices. Please refresh or contact us.";
+          packageLoadError.style.display = "block";
+        }
+      });
   }
 
   /* ---------- ITINERARY: EXPAND / COLLAPSE ALL ---------- */
