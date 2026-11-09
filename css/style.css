@@ -159,6 +159,7 @@ p{ color:var(--bark-soft); }
 
 .nav-links{ display:flex; gap:32px; }
 .nav-socials{ display:none; }
+.nav-booking{ display:none; }
 .nav-links a{
   font-size:0.92rem; font-weight:500; color:rgba(251,247,238,0.88);
   position:relative; padding:6px 0;
@@ -171,6 +172,39 @@ p{ color:var(--bark-soft); }
 .nav-links a:hover::after, .nav-links a.active::after{ width:100%; }
 .nav-links a.active{ color:var(--ochre); }
 .header.scrolled .nav-links a.active{ color:var(--ochre-deep); }
+.nav-dropdown{ position:relative; }
+.nav-trigger{
+  display:flex; align-items:center; gap:7px; padding:6px 0; border:0; background:none;
+  color:rgba(251,247,238,0.88); font:inherit; font-size:0.92rem; font-weight:500; cursor:pointer;
+}
+.header.scrolled .nav-trigger{ color:var(--bark-soft); }
+.nav-trigger .fa-chevron-down{ font-size:0.65rem; transition:transform 0.2s ease; }
+.nav-dropdown:hover > .nav-trigger .fa-chevron-down,
+.nav-dropdown:focus-within > .nav-trigger .fa-chevron-down,
+.nav-dropdown.is-open > .nav-trigger .fa-chevron-down{ transform:rotate(180deg); }
+.nav-trigger::after{
+  content:''; position:absolute; left:0; bottom:0; height:2px; width:0;
+  background:var(--ochre); transition:width 0.25s ease;
+}
+.nav-trigger:hover::after,
+.nav-dropdown:focus-within > .nav-trigger::after,
+.nav-dropdown.is-open > .nav-trigger::after{ width:100%; }
+.nav-dropdown.is-active > .nav-trigger{ color:var(--ochre); }
+.header.scrolled .nav-dropdown.is-active > .nav-trigger{ color:var(--ochre-deep); }
+.nav-submenu{
+  position:absolute; top:calc(100% + 8px); left:-18px; z-index:5; min-width:250px; padding:10px 0;
+  background:var(--cream); border:1px solid var(--line); box-shadow:0 12px 28px rgba(43,36,29,0.16);
+  display:flex; flex-direction:column; gap:0; opacity:0; visibility:hidden; pointer-events:none;
+  transform:translateY(8px); transition:opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+}
+.nav-dropdown:hover .nav-submenu,
+.nav-dropdown:focus-within .nav-submenu,
+.nav-dropdown.is-open .nav-submenu{ opacity:1; visibility:visible; pointer-events:auto; transform:translateY(0); }
+.nav-submenu a,
+.header.scrolled .nav-submenu a{ display:block; padding:10px 18px; color:var(--bark-soft); white-space:nowrap; }
+.nav-submenu a:hover,
+.nav-submenu a.active{ color:var(--ochre-deep); background:var(--sand); }
+.nav-submenu a::after{ display:none; }
 
 .nav-actions{ display:flex; align-items:center; gap:18px; }
 #menu-btn{
@@ -190,9 +224,19 @@ p{ color:var(--bark-soft); }
     opacity:0.16;
   }
   .nav-links > li{ position:relative; z-index:1; }
+  .nav-dropdown > .nav-trigger{ position:relative; justify-content:space-between; width:100%; color:var(--bark); font-size:1.05rem; }
+  .nav-submenu{ position:static; min-width:0; max-height:0; padding:0 0 0 14px; background:transparent; border:0; box-shadow:none; opacity:0; visibility:hidden; pointer-events:none; transform:none; overflow:hidden; transition:max-height 0.25s ease, opacity 0.2s ease, padding 0.25s ease, visibility 0.2s; }
+  .nav-dropdown.is-open .nav-submenu{ max-height:420px; padding:4px 0 0 14px; opacity:1; visibility:visible; pointer-events:auto; }
+  .nav-submenu a,
+  .header.scrolled .nav-submenu a{ padding:8px 0; color:var(--bark-soft); white-space:normal; font-size:0.95rem; }
+  .nav-submenu a:hover,
+  .nav-submenu a.active{ color:var(--ochre-deep); background:transparent; }
   .nav-links.active{ right:0; }
   .nav-links a{ color:var(--bark); font-size:1.05rem; }
+  .nav-links .nav-trigger::after{ display:none; }
   .nav-links .nav-socials{ display:flex; flex-direction:column; gap:14px; padding-bottom:22px; border-bottom:1px solid var(--line); }
+  .nav-links .nav-booking{ display:block; padding-top:4px; }
+  .nav-links .nav-booking .btn{ width:100%; }
   .nav-socials > span{ color:var(--ochre-deep); font-family:var(--font-mono); font-size:0.72rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; }
   .nav-social-links{ display:flex; align-items:center; gap:12px; }
   .nav-social-links a{ display:grid; place-items:center; width:40px; height:40px; border:1px solid var(--line); border-radius:50%; color:var(--bark); font-size:1rem; transition:background 0.2s ease, color 0.2s ease, border-color 0.2s ease; }
@@ -354,6 +398,17 @@ p{ color:var(--bark-soft); }
 .package-card ul li::before{ content:'✓'; position:absolute; left:0; color:var(--ochre); font-weight:700; }
 .package-card.featured ul li::before{ color:var(--bead-gold); }
 
+.tour-category-nav{ position:relative; z-index:2; background:var(--cream); border-bottom:1px solid var(--line); }
+.tour-category-nav .container{ display:flex; gap:28px; overflow-x:auto; padding-top:16px; padding-bottom:16px; }
+.tour-category-nav a{ flex:0 0 auto; color:var(--bark-soft); font-size:0.9rem; font-weight:600; }
+.tour-category-nav a:hover{ color:var(--ochre-deep); }
+.tour-category-grid{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:28px; }
+.tour-category-card{ scroll-margin-top:110px; }
+.tour-category-card .package-card-content{ align-items:stretch; }
+.tour-category-card h3{ min-height:2.24em; }
+@media (max-width:900px){ .tour-category-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media (max-width:600px){ .tour-category-grid{ grid-template-columns:1fr; max-width:480px; margin:0 auto; } .tour-category-card h3{ min-height:0; } }
+
 /* ==================================================================
    IMPACT / STATS
    ================================================================== */
@@ -486,6 +541,9 @@ p{ color:var(--bark-soft); }
 }
 .page-header--packages::before{
   background-image:linear-gradient(90deg,rgba(28,23,18,0.82),rgba(28,23,18,0.3)),url("../images/gallery/Karamoja savannah at sunset.jpg");
+}
+.page-header--tours::before{
+  background-image:linear-gradient(90deg,rgba(28,23,18,0.82),rgba(28,23,18,0.3)),url("../images/safaris/safari\ to\ karamoja/IMG_4346.webp");
 }
 .page-header--about::before{
   background-image:linear-gradient(90deg,rgba(28,23,18,0.84),rgba(28,23,18,0.34)),url("../images/destinations/cultural-village.jpg");

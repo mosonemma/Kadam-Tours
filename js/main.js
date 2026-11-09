@@ -85,21 +85,88 @@ document.addEventListener("DOMContentLoaded", () => {
   /* ---------- MOBILE MENU ---------- */
   const menuBtn = document.getElementById("menu-btn");
   const navLinks = document.querySelector(".nav-links");
+  const dropdowns = navLinks ? [...navLinks.querySelectorAll(".nav-dropdown")] : [];
+  const closeDropdowns = () => {
+    dropdowns.forEach(dropdown => {
+      dropdown.classList.remove("is-open");
+      dropdown.querySelector(".nav-trigger")?.setAttribute("aria-expanded", "false");
+    });
+  };
 
   if (menuBtn && navLinks) {
+    navLinks.id = navLinks.id || "primary-navigation";
+    menuBtn.setAttribute("aria-controls", navLinks.id);
+    menuBtn.setAttribute("aria-expanded", "false");
+
+    const bookingAction = document.querySelector(".nav-actions > .btn-primary");
+    if (bookingAction && !navLinks.querySelector(".nav-booking")) {
+      const bookingItem = document.createElement("li");
+      bookingItem.className = "nav-booking";
+      bookingItem.appendChild(bookingAction.cloneNode(true));
+      const socialLinks = navLinks.querySelector(".nav-socials");
+      navLinks.insertBefore(bookingItem, socialLinks);
+    }
+
     menuBtn.addEventListener("click", () => {
-      navLinks.classList.toggle("active");
+      const isOpen = navLinks.classList.toggle("active");
+      menuBtn.setAttribute("aria-expanded", String(isOpen));
+      if (!isOpen) closeDropdowns();
       const icon = menuBtn.querySelector("i");
-      icon.classList.toggle("fa-bars");
-      icon.classList.toggle("fa-times");
+      if (icon) {
+        icon.classList.toggle("fa-bars", !isOpen);
+        icon.classList.toggle("fa-times", isOpen);
+      }
+    });
+
+    dropdowns.forEach((dropdown, index) => {
+      const trigger = dropdown.querySelector(".nav-trigger");
+      const submenu = dropdown.querySelector(".nav-submenu");
+      if (!trigger || !submenu) return;
+
+      submenu.id = submenu.id || `nav-submenu-${index + 1}`;
+      trigger.setAttribute("aria-controls", submenu.id);
+      trigger.setAttribute("aria-expanded", "false");
+      trigger.addEventListener("click", () => {
+        const isOpen = dropdown.classList.toggle("is-open");
+        trigger.setAttribute("aria-expanded", String(isOpen));
+        dropdowns.forEach(other => {
+          if (other === dropdown) return;
+          other.classList.remove("is-open");
+          other.querySelector(".nav-trigger")?.setAttribute("aria-expanded", "false");
+        });
+      });
+    });
+
+    document.addEventListener("click", event => {
+      if (event.target.closest(".navbar")) return;
+      closeDropdowns();
+    });
+
+    document.addEventListener("keydown", event => {
+      if (event.key !== "Escape") return;
+      closeDropdowns();
+      if (navLinks.classList.contains("active")) {
+        navLinks.classList.remove("active");
+        menuBtn.setAttribute("aria-expanded", "false");
+        menuBtn.focus();
+        const icon = menuBtn.querySelector("i");
+        if (icon) {
+          icon.classList.remove("fa-times");
+          icon.classList.add("fa-bars");
+        }
+      }
     });
 
     document.querySelectorAll(".nav-links a").forEach(link => {
       link.addEventListener("click", () => {
         navLinks.classList.remove("active");
+        menuBtn.setAttribute("aria-expanded", "false");
+        closeDropdowns();
         const icon = menuBtn.querySelector("i");
-        icon.classList.remove("fa-times");
-        icon.classList.add("fa-bars");
+        if (icon) {
+          icon.classList.remove("fa-times");
+          icon.classList.add("fa-bars");
+        }
       });
     });
   }
